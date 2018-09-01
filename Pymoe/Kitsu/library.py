@@ -40,7 +40,7 @@ class KitsuLib:
         """
         Create a library entry for a user. data should be just the attributes.
         Data at least needs a status and progress.
-        
+
         :param user_id: str: User ID that this Library Entry is for
         :param media_id: str: ID for the media this entry relates to
         :param item_type: str: anime, drama or manga depending
@@ -84,7 +84,7 @@ class KitsuLib:
     def update(self, eid, data, token):
         """
         Update a given Library Entry.
-        
+
         :param eid: str: Entry ID
         :param data: dict: Attributes
         :param token: str: OAuth token
@@ -106,7 +106,7 @@ class KitsuLib:
     def delete(self, eid, token):
         """
         Delete a library entry.
-        
+
         :param eid: str: Entry ID
         :param token: str: OAuth Token
         :return: True or ServerError
@@ -125,8 +125,14 @@ class KitsuLib:
 
     @staticmethod
     def __format_filters(filters):
+        """
+        Format filters for the api query (to filter[<filter-name>])
+
+        :param filters: dict: can be None, filters for the query
+        :return: the formatted filters, or None
+        """
         if filters is not None:
-            for k, v in filters.items():
+            for k in filters:
                 if 'filter[' not in k:
                     filters['filter[{}]'.format(k)] = filters.pop(k)
         return filters
